@@ -20,6 +20,10 @@ export interface EventData {
   image?: string;
 }
 
+interface RegistrationSummary {
+  event: { _id: string } | null;
+}
+
 export const EventCard: React.FC<{ event: EventData; index: number }> = ({ event, index }) => {
   const dateObj = new Date(event.date);
   const month = dateObj.toLocaleString('en-US', { month: 'short' });
@@ -32,7 +36,7 @@ export const EventCard: React.FC<{ event: EventData; index: number }> = ({ event
 
   const { user } = useAuth();
   
-  const { data: registrations } = useQuery<{ event: { _id: string } }[]>({
+  const { data: registrations } = useQuery<RegistrationSummary[]>({
     queryKey: ['my-registrations'],
     queryFn: async () => {
       const config = { headers: { Authorization: `Bearer ${user?.token}` } };
@@ -42,7 +46,7 @@ export const EventCard: React.FC<{ event: EventData; index: number }> = ({ event
     enabled: !!user,
   });
 
-  const isBooked = registrations?.some(reg => reg.event._id === event._id);
+  const isBooked = registrations?.some((reg) => reg.event?._id === event._id) ?? false;
 
   return (
     <motion.div

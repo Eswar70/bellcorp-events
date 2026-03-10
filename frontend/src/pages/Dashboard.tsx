@@ -8,7 +8,7 @@ import { Calendar, MapPin, XCircle, Clock, CheckCircle2, Loader2, RefreshCw, QrC
 
 interface Registration {
   _id: string;
-  event: EventData;
+  event: EventData | null;
   registrationDate: string;
 }
 
@@ -86,8 +86,9 @@ const Dashboard: React.FC = () => {
 
   const now = new Date();
   
-  const upcomingEvents = registrations?.filter(reg => new Date(reg.event.date) >= now) || [];
-  const pastEvents = registrations?.filter(reg => new Date(reg.event.date) < now) || [];
+  const registrationsWithEvents = registrations?.filter((reg): reg is Registration & { event: EventData } => Boolean(reg.event?._id)) || [];
+  const upcomingEvents = registrationsWithEvents.filter(reg => new Date(reg.event.date) >= now);
+  const pastEvents = registrationsWithEvents.filter(reg => new Date(reg.event.date) < now);
 
   const displayEvents = activeTab === 'upcoming' ? upcomingEvents : pastEvents;
 

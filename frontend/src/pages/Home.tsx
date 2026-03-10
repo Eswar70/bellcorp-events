@@ -11,6 +11,9 @@ interface EventsResponse {
   total: number;
 }
 
+const isValidEvent = (event: EventData | null | undefined): event is EventData =>
+  Boolean(event?._id);
+
 const Home: React.FC = () => {
   const [keyword, setKeyword] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,6 +33,8 @@ const Home: React.FC = () => {
     queryFn: () => fetchEvents(page, searchQuery, category),
     staleTime: 50000,
   });
+
+  const events = data?.events.filter(isValidEvent) ?? [];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,7 +139,7 @@ const Home: React.FC = () => {
             <p className="font-semibold">Oops! Something went wrong.</p>
             <p className="text-sm mt-1">{(error as any)?.message || 'Failed to load events.'}</p>
           </div>
-        ) : data?.events.length === 0 ? (
+        ) : events.length === 0 ? (
           <div className="bg-white dark:bg-dark-800 border border-slate-100 dark:border-dark-700 rounded-3xl p-12 text-center shadow-sm transition-colors">
             <div className="w-20 h-20 bg-slate-50 dark:bg-dark-900 rounded-full flex items-center justify-center mx-auto mb-6">
               <Calendar className="w-10 h-10 text-slate-400 dark:text-slate-500" />
@@ -150,7 +155,7 @@ const Home: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-            {data?.events.map((event, index) => (
+            {events.map((event, index) => (
               <EventCard key={event._id} event={event} index={index} />
             ))}
           </div>
