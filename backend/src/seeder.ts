@@ -9,6 +9,13 @@ connectDB();
 
 const importData = async () => {
   try {
+    // Ensure text index is created before inserting data
+    await Event.collection.dropIndexes().catch(() => {
+      // Ignore errors if indexes don't exist
+    });
+    
+    await Event.collection.createIndex({ name: 'text', description: 'text', location: 'text' });
+    
     await Event.deleteMany({});
 
     const sampleEvents = [
