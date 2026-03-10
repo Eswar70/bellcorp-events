@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Menu, X, User, LogOut, Ticket, Sparkles, Moon, Sun } from 'lucide-react';
+import { Menu, X, LogOut, Ticket, Sparkles, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-sm font-medium text-slate-2000 hover:text-brand-600 transition-colors">Explore</Link>
+            <Link to="/" className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 transition-colors">Explore</Link>
 
             <button
               onClick={toggleTheme}
@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
 
             {user ? (
               <div className="flex items-center space-x-6">
-                <Link to="/dashboard" className="flex items-center space-x-1 text-sm font-medium text-slate-2000 hover:text-brand-600 transition-colors">
+                <Link to="/dashboard" className="flex items-center space-x-1 text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 transition-colors">
                   <Ticket className="w-4 h-4" />
                   <span>Dashboard</span>
                 </Link>
@@ -90,11 +90,11 @@ const Navbar: React.FC = () => {
             className="md:hidden bg-white/95 dark:bg-dark-900/95 backdrop-blur-lg border-t border-slate-100 dark:border-dark-800 overflow-hidden"
           >
             <div className="px-4 py-6 space-y-4">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-xl text-base font-medium light:text-slate-800 dark:text-slate-2000 hover:bg-brand-50 hover:text-brand-600">Explore Events</Link>
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-xl text-base font-medium text-slate-900 dark:text-slate-100 hover:bg-brand-50 hover:text-brand-600">Explore Events</Link>
 
               {user ? (
                 <>
-                  <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-xl text-base font-medium light:text-slate-800 dark:text-slate-2000 hover:bg-brand-50 hover:text-brand-600">My Dashboard</Link>
+                  <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-xl text-base font-medium text-slate-900 dark:text-slate-100 hover:bg-brand-50 hover:text-brand-600">My Dashboard</Link>
                   <div className="pt-4 border-t border-slate-100">
                     <div className="flex items-center px-3 py-2">
                       <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 font-bold mr-3">
