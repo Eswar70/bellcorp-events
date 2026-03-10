@@ -89,7 +89,7 @@ const ChatbotWidget: React.FC = () => {
 
     try {
       const config = user ? { headers: { Authorization: `Bearer ${user.token}` } } : {};
-      const { data } = await axios.post('http://localhost:5000/api/chatbot', { message: userMessage }, config);
+      const { data } = await axios.post('https://bellcorp-backend.vercel.app/api/chatbot', { message: userMessage }, config);
       
       const botMsg: Message = { id: (Date.now() + 1).toString(), text: data.reply, isBot: true };
       setMessages(prev => [...prev, botMsg]);

@@ -36,7 +36,7 @@ export const EventCard: React.FC<{ event: EventData; index: number }> = ({ event
     queryKey: ['my-registrations'],
     queryFn: async () => {
       const config = { headers: { Authorization: `Bearer ${user?.token}` } };
-      const { data } = await axios.get('http://localhost:5000/api/registrations/my', config);
+      const { data } = await axios.get('https://bellcorp-backend.vercel.app/api/registrations/my', config);
       return data;
     },
     enabled: !!user,

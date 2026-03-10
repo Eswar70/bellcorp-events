@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const [page, setPage] = useState(1);
 
   const fetchEvents = async (pageParam = 1, search = '', filterCategory = '') => {
-    let url = `http://localhost:5000/api/events?pageNumber=${pageParam}`;
+    let url = `https://bellcorp-backend.vercel.app/api/events?pageNumber=${pageParam}`;
     if (search) url += `&keyword=${search}`;
     if (filterCategory) url += `&category=${filterCategory}`;
     const { data } = await axios.get<EventsResponse>(url);

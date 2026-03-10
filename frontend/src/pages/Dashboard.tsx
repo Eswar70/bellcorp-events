@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
     queryKey: ['my-registrations'],
     queryFn: async () => {
       const config = { headers: { Authorization: `Bearer ${user?.token}` } };
-      const { data } = await axios.get('http://localhost:5000/api/registrations/my', config);
+      const { data } = await axios.get('https://bellcorp-backend.vercel.app/api/registrations/my', config);
       return data;
     },
     enabled: !!user,
@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
   const cancelMutation = useMutation({
     mutationFn: async (registrationId: string) => {
       const config = { headers: { Authorization: `Bearer ${user?.token}` } };
-      await axios.delete(`http://localhost:5000/api/registrations/${registrationId}`, config);
+      await axios.delete(`https://bellcorp-backend.vercel.app/api/registrations/${registrationId}`, config);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my-registrations'] });

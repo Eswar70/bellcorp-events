@@ -17,7 +17,7 @@ const EventDetail: React.FC = () => {
   const { data: event, isLoading, isError } = useQuery<EventData>({
     queryKey: ['event', id],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/api/events/${id}`);
+      const { data } = await axios.get(`https://bellcorp-backend.vercel.app/api/events/${id}`);
       return data;
     },
   });
@@ -28,7 +28,7 @@ const EventDetail: React.FC = () => {
       const config = {
         headers: { Authorization: `Bearer ${user.token}` },
       };
-      const { data } = await axios.post(`http://localhost:5000/api/registrations/${id}`, {}, config);
+      const { data } = await axios.post(`https://bellcorp-backend.vercel.app/api/registrations/${id}`, {}, config);
       return data;
     },
     onSuccess: () => {
